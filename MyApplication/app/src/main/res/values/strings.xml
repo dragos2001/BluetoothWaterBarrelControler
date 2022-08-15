@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="start">Start</string>
+    <string name="level">Level</string>
+    <string name="connect">Connect</string>
+    <string name="enable">Enable</string>
+    <string name="status">Status</string>
+    <string name="search">Search</string>
+</resources>
