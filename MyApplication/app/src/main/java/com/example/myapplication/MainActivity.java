@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            if (ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(MainActivity.this, "You have already granted this permission!", Toast.LENGTH_SHORT).show();
 
                 MyBluetoothAdapter.enable();
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void requestConnectPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.BLUETOOTH_CONNECT)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{Manifest.permission.BLUETOOTH_CONNECT}, CONNECTION_REQUEST_CODE);
+                                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, CONNECTION_REQUEST_CODE);
                         }
                     })
                     .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                     .create().show();
 
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, CONNECTION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, CONNECTION_REQUEST_CODE);
             Log.d(TAG," permisiune in curs de cerere ");
         }
 
