@@ -11,7 +11,7 @@ android:weightSum="2">
     <TextView
         android:gravity="center"
         android:id="@+id/Device_name"
-        android:text="Device name"
+        android:text="Devicename"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_weight="1"
@@ -19,7 +19,7 @@ android:weightSum="2">
     <TextView
         android:gravity="center"
         android:id="@+id/MAC_address"
-        android:text="MAC address"
+        android:text="MACaddress"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_weight="1"
