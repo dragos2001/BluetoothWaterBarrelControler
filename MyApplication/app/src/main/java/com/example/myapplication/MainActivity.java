@@ -46,9 +46,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private final int CONNECTION_REQUEST_CODE = 1002;
 
 
+
+
     private Button buttonen;
     private Button buttonsend;
-    private Button buttoncon;
+    private Button buttonwater;
     private Button buttonsearch;
     private TextView status;
     private TextView level;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
       buttonen = findViewById(R.id.btn1);
-      buttoncon = findViewById(R.id.btn2);
+      buttonwater = findViewById(R.id.btn2);
       buttonsearch = findViewById(R.id.btn3);
       buttonsend=findViewById(R.id.btn4);
       status = findViewById(R.id.txtw);
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public void onClick(View view) {
-                Log.d(TAG,"App is going to search for devices");
+
                 SearchForBTdevices();
             }
 
@@ -107,14 +109,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public void onClick(View view) {
+                receive_water_level();
 
-                Log.d(TAG,"Request for receiving data ...");
+            }
 
-                if(ConnectionThread!=null)
-                {
-                    byte[]data_b={1};
-                    DataThread.write(data_b);
-                }
+
+        });
+
+
+        buttonwater.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view) {
+
+                fill_barrel();
             }
 
 
@@ -146,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } catch (InterruptedException e) {
             Log.e(TAG,e.getMessage());
         }
-        DataThread=new SendReceiveThread(ConnectionThread.getBTsocket(),level);
+        DataThread=new SendReceiveThread(ConnectionThread.getBTsocket(),level,this,buttonwater);
         DataThread.start();
     }
 
@@ -180,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
             else
             {
-
+                Toast.makeText(MainActivity.this, "You have been granted the permission!", Toast.LENGTH_SHORT).show();
                 requestConnectPermission();
             }
 
@@ -235,6 +244,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void SearchForBTdevices() {
 
 
+        Log.d(TAG,"App is going to search for devices");
 
         if(MyBluetoothAdapter.isEnabled()) {
             Log.d(TAG, "App searches for devices-1");
@@ -351,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
     };
-    
+
 
     @SuppressLint("MissingSuperCall")
     @Override
@@ -396,11 +406,43 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
+    private void fill_barrel()
+    {
 
 
+        if(ConnectionThread!=null)
+        {
+            DataThread.on_off_valve();
+        }
+
+
+    }
+
+    private void receive_water_level()
+    {
+        Log.d(TAG,"Request for receiving data ...");
+
+        if(ConnectionThread!=null)
+        {
+            byte[]data_b={1};
+            DataThread.write(data_b);
+        }
+
+    }
+
+
+
+
+
+
+    @SuppressLint("MissingSuperCall")
     protected void onDestroy() {
+
         Log.d(TAG, "onDestroy: called.");
-        super.onDestroy();
+
+        DataThread.cancel();
+        ConnectionThread.cancel();
+
         unregisterReceiver(mBroadcastReceiver1);
         unregisterReceiver(mBroadcastReceiver3);
         unregisterReceiver(mBroadcastReceiver4);
