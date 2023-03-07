@@ -22,6 +22,9 @@ import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
+
+
+//layout adapter for the user interface
 public class LayoutListAdapter extends ArrayAdapter<BluetoothDevice> {
 
     //private final int CONNECTION_REQUEST_CODE = 1002;

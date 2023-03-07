@@ -38,7 +38,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
-
+//main
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final String TAG = "MyActivity";

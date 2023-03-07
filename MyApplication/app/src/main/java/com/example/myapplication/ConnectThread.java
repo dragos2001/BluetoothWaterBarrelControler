@@ -9,6 +9,10 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.UUID;
 
+
+
+
+//Thread for connecting to a bluetooth device
 class ConnectThread extends Thread {
 
 

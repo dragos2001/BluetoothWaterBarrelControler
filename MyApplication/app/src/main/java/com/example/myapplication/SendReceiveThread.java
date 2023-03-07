@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+
+
+// Thread for sending and receiving data from microcontroller
 class SendReceiveThread extends Thread {
 
 
