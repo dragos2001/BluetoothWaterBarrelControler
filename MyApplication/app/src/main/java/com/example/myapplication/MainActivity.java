@@ -78,12 +78,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Bluetooth_Devices_ArrayList = new ArrayList<>();
 
+        //get the default local adapter of the device in order to perform bluetooth related tasks
         MyBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
          ListForDiscoveredDevices = (ListView)findViewById(R.id.list_view);
 
 
-
+         //button for enabling and disabling bluetooth
         buttonen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        //button for searching devices
         buttonsearch.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
 
+        //button for receiving water level
         buttonsend.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -116,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         });
 
-
+        //command to start filling the barrel
         buttonwater.setOnClickListener(new View.OnClickListener() {
 
 
@@ -137,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-
+    //command for connecting to a listed device when click on it
     @SuppressLint("MissingPermission")
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -183,12 +186,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 Toast.makeText(MainActivity.this, "You have already granted this permission!", Toast.LENGTH_SHORT).show();
 
                 MyBluetoothAdapter.enable();
+
+                //filter intent for ACTION_STATE_CHANGED state of the Bluetooth adapter
                 IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
                 registerReceiver(mBroadcastReceiver1, BTIntent);
 
             }
             else
             {
+                //display message
                 Toast.makeText(MainActivity.this, "You have been granted the permission!", Toast.LENGTH_SHORT).show();
                 requestConnectPermission();
             }
@@ -207,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         }
 
-
+    //request permissions
     private void requestConnectPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
@@ -362,7 +368,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     };
 
-
+    // request for p
     @SuppressLint("MissingSuperCall")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -405,7 +411,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-
+    //command for activating the valve
     private void fill_barrel()
     {
 
@@ -417,6 +423,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     }
+
+    //command for receiving the water level
 
     private void receive_water_level()
     {
